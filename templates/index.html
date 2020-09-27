@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+
+{% block content%}
+    <form action="/res" class="mt-5 p-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% for category,msg in messages %}
+                            <h3 class="flash {{ category }} text-center">{{ msg }}</h3>
+                        {% endfor %}
+                        {%endwith%}
+        <div class="jumbotron">
+            <h2 class="display-5 text-center mb-4">Currency Converter</h2>
+            <div class="form-group">
+                <label for="from">Converting from</label>
+                <input type="text" class="form-control {{session["curr_1"]["valid"]}}" id="from" name="from" value={{session["curr_1"]["val"]}}>
+            </div>
+            <div class="form-group">
+                <label for="to">Converting to</label>
+                <input type="text" class="form-control {{session["curr_2"]["valid"]}}" id="to" name="to" value={{session["curr_2"]["val"]}}>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control {{session["amount"]["valid"]}}" id="amount" name="amount" value={{session["amount"]["val"]}}>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-4">Submit</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block script%} <script> 
+    $(document).ready(function(){
+        $(".flash").delay(3000).slideUp(300);
+    });
+</script>{% endblock %}
